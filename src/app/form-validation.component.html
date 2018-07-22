@@ -1,0 +1,86 @@
+<div class="container">
+     
+            <h2 style=" margin-left:10%;
+            ">Form Validation in Angular-2</h2>
+            <form  #heroForm="ngForm">
+          <div class="form-group">
+            <label for="FirstName">First Name</label><br>
+            <input type="text" class="form-control" id="FirstName"
+            required
+            pattern="[a-zA-Z][a-zA-Z ]+" 
+                   [(ngModel)]="fnam" name="fname" #fname="ngModel" style="margin:2% 0 1% 0; height:5%">
+                   <div *ngIf="fname.errors && (fname.dirty || fname.touched)" class="alert alert-danger">
+                        <div [hidden]="!fname.errors.required" >
+                          First Name Required!
+                        </div>
+                        <div [hidden]="!fname.errors.pattern" >
+                          Must be a valid First Name(Accepts Only Characters)!
+                        </div>
+                      </div>
+                    
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="LastName">Last Name</label><br>
+            <input type="text" class="form-control" id="LastName"
+            required
+            pattern="[a-zA-Z][a-zA-Z ]+" 
+                   [(ngModel)]="lnam" name="lname" #lname="ngModel" style="margin:2% 0 1% 0; height:5%">
+                   <div *ngIf="lname.errors && (lname.dirty || lname.touched)" class="alert alert-danger">
+                        <div [hidden]="!lname.errors.required" >
+                          Last Name is required!
+                        </div>
+                        <div [hidden]="!lname.errors.pattern" >
+                          Must be a valid Last Name(Accepts Only Characters)!
+                        </div>
+                      </div>
+                    
+          </div>
+          <br>
+         
+              <div class="form-group">
+                <label for="Age">Age</label><br>
+                <input type="text" class="form-control" id="Age"
+                   required
+                       pattern="^[0-9]*$"
+                       [(ngModel)]="Ag" name="Age"
+                       #Age="ngModel" style="margin:2% 0 1% 0; height:5%">
+                       <div *ngIf="Age.errors && (Age.dirty || Age.touched)" class="alert alert-danger">
+                            <div [hidden]="!Age.errors.required" >
+                              Age is required!
+                            </div>
+                            <div [hidden]="!Age.errors.pattern" >
+                              Must be a valid Age (Accepts Only Numbers)!
+                            </div>
+                          </div>
+              </div>
+     
+          <br>
+          <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                    [(ngModel)]="model" #modal="ngModel" required></my-date-picker>
+                    <br>
+                    
+     
+        <a> <button type="submit"  (click)="isValid=true" class="btn btn-success btn-block" [disabled]="!heroForm.form.valid">Submit</button></a>
+         
+        </form>
+        <table class="table" *ngIf="isValid">
+              <tr><h1> Submitted Value </h1></tr>
+            <tr>
+              <td><label>First Name</label></td>
+              <td>{{fnam}}</td>
+            </tr>
+            <tr>
+              <td><label>Last Name</label></td>
+              <td>{{lnam}}</td>
+            </tr>
+            <tr>
+              <td><label>Age</label></td>
+              <td>{{Ag}}</td>
+            </tr>
+            <tr>
+                        <td><label>Date</label></td>
+                        <td>{{model}}</td>
+                      </tr>
+          
+          </table>
